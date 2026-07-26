@@ -21,9 +21,43 @@ In the file "funcarg.c"
 - f -> %r9
 - g -> pushed onto the stack
 
-Drill:
-Compile it with `gcc -O0 -fno-stack-protector`
-Run gdb and inspect registers after the call
-Use x/16gx $rsp to see spilled arguments on the stack
-Draw a layout : registers vs stack
+## Reading the Stack 
+# Compile With Debug Symbols
+``` gcc -O0 -g -fno-stack-protector funcarg.c -o funcarg 
+	#-O0 no optimization ( keeps stack frames readable)
+	# -g includes debug symbols
+	# -fno-stack-protector  disables stack canaries so you can see raw memory
+```
+
+# Launch gdb
+ 
+ ` gdb ./funcarg `
+	
+# Set Breakpoint at Sum
+
+``` 
+	break sum
+	run 
+```
+This will stop the execution right when sum is called.
+# Inspect Register
+
+` info registers `
+
+Notice the first six arguments in the registers
+
+# Inspect the Stack
+Dumping memory at the stack pointer
+``` 
+	x/16gx $rsp
+	# x - examine memory
+	#/16 - show 16 entries
+	# g - each entry is a "giant word" (8 bytes )
+	# x - display in hexadecimal
+	# $rsp - start at the current stack pointer register
+```
+![](./images/image1.png)
+0x0000000000000007 - represents the 7th argument. The other entries represent return addresses, frame pointers and runtime library addresses.
+
+![](./images/image2.png)
 
