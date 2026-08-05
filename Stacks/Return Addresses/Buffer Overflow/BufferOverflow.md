@@ -26,3 +26,12 @@ a) You often need to strip the newline manually with ` strchr `
 b) It is still vulnerable if misused in ways such as passing it in unsafe functions such as `strcpy()`  ` printf("%s")` without boundchecks introducing exploitation opportunities.
 
 ## Force Legacy Mode
+To compile the program using legacy C standard you can simply tell the compiler through the following command.
+`gcc -O0 -fno-stack-protector -std=gnu89 overflowvuln.c -o vuln`
+
+The flag `-std=gnu89` swithches GCC to GNU dialect of ANSI C . `-Oo` disables optimizations
+Notes:
+a) Modern glibc ships gets() but still returns a depracated error
+b) If the libc does not allow gets() you can manually declare it
+
+##nManual Declaration
