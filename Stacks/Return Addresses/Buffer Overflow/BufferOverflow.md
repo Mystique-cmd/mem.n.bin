@@ -34,4 +34,9 @@ Notes:
 a) Modern glibc ships gets() but still returns a depracated error
 b) If the libc does not allow gets() you can manually declare it
 
-##nManual Declaration
+## Manual Declaration
+If you want to bypass the compiler error and still pass gets()  you can manually declare the function prototype before using it. This tricks the compiler into accepting the call even though modern headers do not provide it anymore.
+It can be declared by the following line of code:
+` char *gets(char *buf)`
+
+## Vulnerable Alternatives
