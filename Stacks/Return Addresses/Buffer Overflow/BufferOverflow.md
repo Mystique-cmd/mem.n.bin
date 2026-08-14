@@ -14,7 +14,21 @@ e) When the function executes RET the CPU jumps to the corrupted return address 
 # Drill
 Compile the overflowvuln.c file with protections off to allow for the compiler to not generate the error below.
 ![](./images/image1.png)
-` gcc -O0 -g -fno-stack-protector overflowvuln.c -o vuln `
+Run in gdb
+Break at vuln
+```
+break vuln
+run
+```
+Examinine the stack:
+`x/32gx $rsp`
+![](./images/image2.png)
+Input more that 30 characters
+`next`
+When the buffer overlow happens you get a SIGSEGV signal 
+![](./images/image3.png)
+The overflowed buffer
+![](./images/image4.png)
  Modern compilers restrict the compilation of the program with the gets() function since it is obsolete and unsafe. To practice the bufferoverflow there are several was to go about it:
  
 ## Use fgets() instead:
