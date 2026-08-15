@@ -36,3 +36,9 @@ Modern systems block:
 (ii) Executable heaps
 (iii) Writable code segments
 But they cannot return instructions - programs need them and ROP chains exploit this fundamental CPU behavior
+
+1. Compile the vuln.c file and then compile it without the protection.
+2. Find system and "/bin/sh" in the binary - use `nm` and `strings`
+`nm -D vuln | grep system `
+`strings -a -t x /lib/x86_64-linux-gnu/libc.so.6 | grep "/bin/sh"`
+
