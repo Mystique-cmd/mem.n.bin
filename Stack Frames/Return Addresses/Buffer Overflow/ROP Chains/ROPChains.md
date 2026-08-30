@@ -40,5 +40,7 @@ But they cannot return instructions - programs need them and ROP chains exploit 
 1. Compile the vuln.c file and then compile it without the protection.
 2. Find system and "/bin/sh" in the binary - use `nm` and `strings`
 `nm -D vuln | grep system `
+nm -D lists dynamic symbols - functions imported from shared libraries
 `strings -a -t x /lib/x86_64-linux-gnu/libc.so.6 | grep "/bin/sh"`
-
+![](./images/image2.png)
+3. Find pop rdi; ret gadget - you can use ROPgadget or radare2
